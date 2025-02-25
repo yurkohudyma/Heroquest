@@ -1,0 +1,29 @@
+
+
+java:S1192‘"FDefine a constant instead of duplicating this literal "Room " 7 times.(±Ø™Æùÿÿÿÿ8ä×’íÓ2J$4127da18-6ff8-408e-84c8-7adea6ae5a37
+
+java:S1192£"FDefine a constant instead of duplicating this literal " has " 3 times.(Ÿ¿²³øÿÿÿÿ8ä×’íÓ2J$3618e7bd-9883-4a9d-a591-aa21160e5422
+š
+java:S1104"WMake roomCounter a static final constant or non-public and provide accessors if needed.(‡ûÍ8æ×’íÓ2J$ab86ee45-7906-407c-98a0-4f8e3ae32913
+t
+java:S1444"1Make this "public static roomCounter" field final(‡ûÍ8ç×’íÓ2J$d3007954-6681-46a5-9ee7-543d2a90818e
+r	java:S106"+Replace this use of System.out by a logger.(“×·ôşÿÿÿÿ8Ø’íÓ2J$99e8328c-5ad7-4dc7-a816-fcff369a2677
+‹
+java:S1659 "CDeclare "grungi" and all following declarations on a separate line.(–¡–àûÿÿÿÿ8ƒØ’íÓ2J$7832e9f9-24f4-486b-9da4-82fd9e156908
+	java:S107Ê"<Method has 8 parameters, which is greater than 7 authorized.(–¸ğò8…Ø’íÓ2J$987c670e-cbba-4b20-9f72-ae889d9a0597
+ƒ	java:S125%"<This block of commented-out lines of code should be removed.(ÏÓ­ùÿÿÿÿ8ŠØ’íÓ2J$5aae3af4-0fcd-46e2-97cd-b513843f2e1d
+~	java:S125T"<This block of commented-out lines of code should be removed.(‹æ¯¯8Ø’íÓ2J$bfcb26b2-c024-4b78-8695-36933f37653d
+~	java:S125t"<This block of commented-out lines of code should be removed.(ñšø8Ø’íÓ2J$2e7f17cd-7a21-4db5-a415-af0a8e79e59f
+~	java:S125x"<This block of commented-out lines of code should be removed.(ìÙÁ²8Ø’íÓ2J$a0db8262-bddc-49ab-94e7-24951dd5fa5c
+„	java:S125ë"<This block of commented-out lines of code should be removed.(²ş•“úÿÿÿÿ8 Ø’íÓ2J$a883aaf2-e49a-466d-acfc-d7b300220e9e
+„	java:S125í"<This block of commented-out lines of code should be removed.(‰Éñùÿÿÿÿ8 Ø’íÓ2J$1e5c9c0f-0538-403f-8f79-b72889275995
+„	java:S125ò"<This block of commented-out lines of code should be removed.(Ş¹‡áûÿÿÿÿ8 Ø’íÓ2J$f2664ffb-fb70-4594-97aa-19f35d2acb51
+„	java:S125ø"<This block of commented-out lines of code should be removed.(æÇ÷üúÿÿÿÿ8 Ø’íÓ2J$a18372fe-fcdb-4d03-b6fd-5411643cf97b
+	java:S125"<This block of commented-out lines of code should be removed.(Æâ€€8 Ø’íÓ2J$f681afb8-ad84-46be-9d89-c11a88f9a7ff
+„	java:S125…"<This block of commented-out lines of code should be removed.(ÕÒüÿÿÿÿ8¡Ø’íÓ2J$3415f855-df61-4121-9dd2-d325282082ff
+	java:S125‰"<This block of commented-out lines of code should be removed.(À¡æõ8¡Ø’íÓ2J$00ba0407-fc85-47df-bc41-23167295db83
+„	java:S125Œ"<This block of commented-out lines of code should be removed.(™Ø‘©şÿÿÿÿ8¡Ø’íÓ2J$5aa85ee7-4346-4ec4-8a7d-d5bd41285dd3
+w
+java:S11445"4Remove this unused private "configureMaze02" method.(ôì¾Œ8©Ø’íÓ2J$b3a1c4ce-5817-48bd-b8bb-c1c6dc1d0659
+u
+java:S1144Ê"1Remove this unused private "viewAllStaff" method.(–¸ğò8©Ø’íÓ2J$e6a35875-7f1d-4a2c-9b91-981775f14cb2

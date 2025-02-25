@@ -1,0 +1,14 @@
+
+r	java:S106"+Replace this use of System.out by a logger.(“×·ôşÿÿÿÿ8áøêÓ2J$96bc1eb4-2286-4c57-9c62-076544d488f4
+	java:S116"LRename this field "X" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷˜£8áøêÓ2J$4055fbdb-ef02-45f0-94d7-73148f35c83c
+	java:S116"LRename this field "Y" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷˜£8áøêÓ2J$b5548deb-eea0-406f-98d7-622fd4b9be90
+b
+java:S1659"Declare "Y" on a separate line.(÷˜£8ŸáøêÓ2J$e6dd1708-96ea-48c5-9091-3a7990eb9519
+l
+java:S16592"$Declare "legend" on a separate line.(ƒçé¢úÿÿÿÿ8ŸáøêÓ2J$5988f592-9258-4c6b-bb54-8c49a578256b
+—
+java:S16593"ODeclare "needToFindTreasure" and all following declarations on a separate line.(›³Õáûÿÿÿÿ8ŸáøêÓ2J$f5bb86f6-fe3b-42cb-9bc7-35e5cd8e5096
+€
+java:S1117"=Rename "mazeArray" which hides the field declared at line 13.(›‹ÓÒ8¤áøêÓ2J$fb950730-0cec-4b0d-9976-87eae83b91cd
+™
+java:S1128	"VRemove this unused import 'ua.hudyma.util.InheritorsFinder.retrieveAllClassInstances'.(ÑçÌé8¬áøêÓ2J$cd8fdf47-6363-4baa-801c-cce8c87f8fc6

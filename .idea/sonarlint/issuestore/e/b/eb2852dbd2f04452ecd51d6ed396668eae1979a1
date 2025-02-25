@@ -1,0 +1,7 @@
+
+“
+java:S1104"PMake icon a static final constant or non-public and provide accessors if needed.(‚¦³œ8­Í§œÒ2J$a7ac081f-6d7e-4892-b5fe-4a9a7c658d95
+“	java:S116"LRename this field "X" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ÚÔ°ûÿÿÿÿ8±Í§œÒ2J$213b08f9-9cf0-4337-838b-0bda6b2a9688
+“	java:S116"LRename this field "Y" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£ÚÔ°ûÿÿÿÿ8±Í§œÒ2J$ab256c53-6c59-4eb7-bdfd-47767b8e8030
+g
+java:S1659"Declare "Y" on a separate line.(£ÚÔ°ûÿÿÿÿ8²Í§œÒ2J$9ab8ffe5-2169-46b2-887d-b6c04d414000
