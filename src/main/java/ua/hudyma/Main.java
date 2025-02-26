@@ -14,7 +14,7 @@ import static ua.hudyma.maze.Maze.configureMaze01;
 public class Main {
     public static AtomicInteger roomCounter = new AtomicInteger();
 
-    public void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException {
         configureMaze01();
     }
     @Deprecated
