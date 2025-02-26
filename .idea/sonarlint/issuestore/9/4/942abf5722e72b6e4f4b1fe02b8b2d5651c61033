@@ -1,12 +1,0 @@
-
-˜
-java:S1104"UMake roomArray a static final constant or non-public and provide accessors if needed.(²¤“×8­·íÓ2J$c212cf2e-87df-4bfe-9cab-81c244314b7f
-r	java:S106"+Replace this use of System.out by a logger.(“×·ôşÿÿÿÿ8Ï·íÓ2J$d04db338-24c8-4f22-b960-25b57134202b
-Š
-java:S1659"GDeclare "dimensionY" and all following declarations on a separate line.(æ¬ş†8Ñ·íÓ2J$f1a155be-3f17-4837-b0a0-f981b7c274f2
-a
-java:S2119£"Save and re-use this "Random".(‹‘¹q8ä·íÓ2J$4ffd7c2a-8d14-4953-92a2-049502e365e3
-m
-java:S1128"+Remove this unused import 'ua.hudyma.Main'.(É¬½m8å·íÓ2J$ef64894f-b5ad-48fc-a2f1-b04755423c5a
-s
-java:S1128"0Remove this unused import 'ua.hudyma.maze.Maze'.(ÃÁˆ§8å·íÓ2J$5226fd2f-13ae-4015-8f48-6adb3181a4a3
