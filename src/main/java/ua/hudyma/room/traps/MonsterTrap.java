@@ -21,7 +21,7 @@ public class MonsterTrap extends Trap {
 
     public MonsterTrap() {}
 
-    public Monster getMonsterForTrap() throws IOException, ClassNotFoundException {
+    public Monster getMonsterForTrap() throws ClassNotFoundException {
         var classList = InheritorsFinder.findInheritors(Monster.class, Monster.class.getPackageName());
         var monsterList = InheritorsFinder.mapToEntity(classList, Monster.class);
         int rand = new Random().nextInt(monsterList.size());

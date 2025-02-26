@@ -5,7 +5,7 @@ import java.util.Random;
 
 public abstract class Trap {
 
-    public Trap() {
+    protected Trap() {
     }
 
     public static Trap generateTrap(){

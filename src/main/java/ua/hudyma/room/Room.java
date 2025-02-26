@@ -1,9 +1,16 @@
 package ua.hudyma.room;
 
-import ua.hudyma.Main;
-import ua.hudyma.maze.Maze;
 import ua.hudyma.room.caches.Cache;
+import ua.hudyma.room.caches.Treasure;
+import ua.hudyma.room.caches.potions.Potion;
+import ua.hudyma.room.caches.potions.Resilience;
+import ua.hudyma.room.caches.potions.Speed;
+import ua.hudyma.room.monsters.ChaosWarrior;
 import ua.hudyma.room.monsters.Monster;
+import ua.hudyma.room.monsters.Skeleton;
+import ua.hudyma.room.traps.CrossBoltTrap;
+import ua.hudyma.room.traps.MonsterTrap;
+import ua.hudyma.room.traps.PitTrap;
 import ua.hudyma.room.traps.Trap;
 
 import java.util.ArrayList;
@@ -13,8 +20,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.out;
-import static ua.hudyma.Main.getSimpleName;
-import static ua.hudyma.Main.roomCounter;
+import static ua.hudyma.Main.*;
 
 public class Room {
     protected List<Door> doors;
@@ -25,6 +31,86 @@ public class Room {
     private AtomicInteger localRoomCounter;
     protected int dimensionX, dimensionY, positionX, positionY;
 
+    public static Room prepareRoom(int x, int y, int posX, int posY) throws ClassNotFoundException {
+        Room room = new Room(x, y, posX, posY);
+        room.fillRoomArray();
+        room.addDoor(1,y - 1,true);
+        room.addDoor(x - 1,y / 2, false);
+        room.addMonsters(new ChaosWarrior(1,1), new Skeleton(2,2));
+        room.unveilCaches(room);
+        room.viewMonsters();
+        room.viewRoomArray();
+        printDelimiter();
+        return room;
+    }
+
+    private void unveilCaches(Room room) throws ClassNotFoundException {
+        var treasure = room.roomHasTreasures() ? new Treasure() : null;
+        if (treasure != null) {
+            out.println("Room " + room.getLocalRoomCounter() + " has treasure: " + treasure.getCache());
+            var treasures = room.getCaches();
+            treasures.add(treasure);
+            setCaches(treasures);
+        } else {
+            out.println("Room " + room.getLocalRoomCounter() + " has no treasures");
+            if (Potion.roomHasPotions()) {
+                Potion potion = null;
+                var room1Potion = Potion.generateRandomLotion();
+                if (room1Potion instanceof Speed) {
+                    potion = new Speed();
+                } else if (room1Potion instanceof Resilience) {
+                    potion = new Resilience();
+                }
+                assert potion != null;
+                var cacheList = room.getCaches();
+                cacheList.add(potion);
+                //room.setCaches(cacheList);
+                out.println("Room " + room.getLocalRoomCounter() + " has " + getSimpleName(potion) + " Potion");
+            }
+            else {
+                out.println("Room " + room.getLocalRoomCounter() + " has no Potions");
+                unveilTraps(room);
+            }
+        }
+    }
+
+    private void unveilTraps(Room room) {
+        if (room.roomHasTraps()) {
+            Trap roomTrap = null;
+            var trap = Trap.generateTrap();
+            if (trap instanceof PitTrap) {
+                roomTrap = new PitTrap();
+                calloutForRoomTrap(room, roomTrap);
+            } else if (trap instanceof MonsterTrap) {
+                roomTrap = new MonsterTrap();
+                Monster monster = ((MonsterTrap) roomTrap).getMonster();
+                out.println("Room " + room.getLocalRoomCounter() + " has " + getSimpleName(roomTrap) + " " + getSimpleName(monster));
+            } else if (trap instanceof CrossBoltTrap) {
+                roomTrap = new CrossBoltTrap();
+                calloutForRoomTrap(room, roomTrap);
+            }
+            assert roomTrap != null;
+            var trapList = room.getTraps();
+            trapList.add(roomTrap);
+            room.setTraps(trapList);
+        } else out.println("Room " + room.getLocalRoomCounter() + " has no Traps");
+    }
+
+    private static void calloutForRoomTrap(Room room, Trap roomTrap) {
+        out.println("Room " + room.getLocalRoomCounter() + " has " + getSimpleName(roomTrap));
+    }
+
+    public void addTraps(Room room, Trap... trap) {
+        var traps = room.getTraps();
+        traps.addAll(List.of(trap));
+        room.setTraps(traps);
+        var array = getRoomArray();
+        for (Trap t : trap){
+            array[t.getX()][t.getY()] = t.icon;
+        }
+        room.setRoomArray(array);
+    }
+
     public void addDoor(int x, int y, boolean isSecret) {
         Door door = isSecret ? new SecretDoor(x, y) : new Door(x,y);
         var doorList = getDoors();
@@ -34,7 +120,7 @@ public class Room {
         setDoors(doorList);
     }
 
-    public void addMonsters(Monster ... monster) {
+    public void addMonsters(Monster... monster) {
         var monsterList = getMonsters();
         var array = getRoomArray();
         for (Monster m : monster){
@@ -73,17 +159,17 @@ public class Room {
     public void setRoomArray(char[][] roomArray) {
         this.roomArray = roomArray;
     }
-    public void fillRoomArray (){
+    public void fillRoomArray(){
         var array = getRoomArray();
         for (char[] chars : array) {
             Arrays.fill(chars, '.');
         }
-        for (int i = 0; i < array.length; i++){
-            for (int j = 0; j < array[i].length; j++){
-                array[j][0] = '|';
+        for (int i = 0; i < getDimensionX(); i++){
+            for (int j = 0; j < getDimensionY(); j++){
+                array[i][0] = '|';
                 array[0][j] = '_';
-                array[array.length - 1][j] = '_';
-                array[i][array[i].length - 1] = '|';
+                array[getDimensionX() - 1][j] = '_';
+                array[i][getDimensionY() - 1] = '|';
             }
         }
         setRoomArray(array);
@@ -103,6 +189,7 @@ public class Room {
         }
         out.println();
     }
+
     public int getDimensionX() {
         return dimensionX;
     }
@@ -144,10 +231,10 @@ public class Room {
         this.dimensionY = dimensionY;
         this.positionX = positionX;
         this.positionY = positionY;
-        this.doors = new ArrayList<>();
-        this.traps = new ArrayList<>();
-        this.caches = new ArrayList<>();
-        this.monsters = new ArrayList<>();
+        doors = new ArrayList<>();
+        traps = new ArrayList<>();
+        caches = new ArrayList<>();
+        monsters = new ArrayList<>();
         roomArray = new char[dimensionX][dimensionY];
         localRoomCounter = new AtomicInteger(roomCounter.incrementAndGet());
     }

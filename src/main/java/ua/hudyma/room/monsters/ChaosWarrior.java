@@ -7,6 +7,6 @@ public class ChaosWarrior extends Monster {
         super.defence = 10;
         super.endurance = 10;
         super.movability = 8;
-        super.icon = 'W';
+        super.icon = 'C';
     }
 }

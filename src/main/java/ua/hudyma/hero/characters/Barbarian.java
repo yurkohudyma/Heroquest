@@ -9,5 +9,6 @@ public class Barbarian extends Hero {
         super.race = Races.BARBARIAN;
         super.livePoints = 8;
         super.mindPoints = 2; //for Dwarf seems like are useless
+        super.icon = 'B';
     }
 }
