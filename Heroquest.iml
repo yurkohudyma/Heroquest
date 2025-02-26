@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/d/4" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/a/b" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/e/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/d/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/f/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/d/6" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/e/9" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2/6" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/0/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/3/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/2/f" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/3/4" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/5/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/7/f" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/8/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/8/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/a/3" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/a/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/a/b" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/c/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/d/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/d/4" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/d/6" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/e/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/e/9" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2/5" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/securityhotspotstore/f/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/0/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2/f" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2/6" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/3/4" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/2/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/7/f" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/3/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/8/2" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/5/e" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/a/7" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/8/1" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/c/8" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/a/3" />
+    </content>
+  </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="d0cc109b-5d4f-456a-b93f-d75155d96932" />
   </component>
