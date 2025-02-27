@@ -10,5 +10,6 @@ public class Barbarian extends Hero {
         super.livePoints = 8;
         super.mindPoints = 2; //for Dwarf seems like are useless
         super.icon = 'B';
+        super.name = "Sigmar";
     }
 }

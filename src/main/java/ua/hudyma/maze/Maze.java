@@ -16,7 +16,7 @@ import static ua.hudyma.room.Room.prepareRoom;
 
 
 public abstract class Maze {
-    protected int X, Y;
+    protected static int X, Y;
     protected static char[][] mazeArray;
     protected List<Room> rooms;
     protected String name, legend;
@@ -44,7 +44,7 @@ public abstract class Maze {
         roomList.addAll(List.of(room1hollow, room2));
         maze01.setRooms(roomList);
         maze01.imprintHeroIconIntoMazeArray();
-        maze01.viewMazeArray();
+        viewMazeArray();
     }
 
     public void configureMaze02() throws ClassNotFoundException, IOException {
@@ -72,20 +72,16 @@ public abstract class Maze {
     }
 
     protected void imprintRoomIntoMazeArray(Room room) {
-        var mazeArray = getMazeArray();
-        var roomArray = room.getRoomArray();
-        var roomPosX = room.getPositionX();
-        var roomPosY = room.getPositionY();
-        var roomDimX = room.getDimensionX();
-        var roomDimY = room.getDimensionY();
+        char [][] mazeArray = getMazeArray(), roomArray = room.getRoomArray();
+        int roomPosX = room.getPositionX(), roomPosY = room.getPositionY();
+        int roomDimX = room.getDimensionX(), roomDimY = room.getDimensionY();
         for (int i = 0; i < roomDimX; i++) {
-            //mazeArray[i + roomPosX][j + roomPosY] = roomArray[i][j];
             System.arraycopy(roomArray[i], 0, mazeArray[i + roomPosX], roomPosY, roomDimY);
         }
         setMazeArray(mazeArray);
     }
 
-    public void viewMazeArray() {
+    public static void viewMazeArray() {
         var array = getMazeArray();
         for (int i = 0; i < getX(); i++) {
             out.print(i < 10 ? i + "  " : i + " ");
@@ -141,7 +137,7 @@ public abstract class Maze {
         this.reward = reward;
     }
 
-    public int getX() {
+    public static int getX() {
         return X;
     }
 
@@ -149,7 +145,7 @@ public abstract class Maze {
         X = x;
     }
 
-    public int getY() {
+    public static int getY() {
         return Y;
     }
 

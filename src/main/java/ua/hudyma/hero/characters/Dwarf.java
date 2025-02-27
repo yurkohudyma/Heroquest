@@ -11,5 +11,6 @@ public class Dwarf extends Hero {
         super.mindPoints = 3; //for Dwarf seems like are useless
         super.hasToolkit = true;
         super.icon = 'D';
+        super.name = "Grugni";
     }
 }

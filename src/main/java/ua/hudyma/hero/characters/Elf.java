@@ -16,6 +16,7 @@ public class Elf extends Hero implements Magic {
         super.livePoints = 6;
         super.mindPoints = 4; // could remember spell of one nature kind (4 or 3?)
         super.icon = 'E';
+        super.name = "Ladril";
     }
 
     @Override

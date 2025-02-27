@@ -1,22 +1,39 @@
 package ua.hudyma;
 
 import ua.hudyma.hero.characters.Hero;
-import ua.hudyma.hero.weaponry.attack.Weapon;
-import ua.hudyma.hero.weaponry.defence.Armour;
+import ua.hudyma.maze.Maze;
 
-import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.out;
-import static ua.hudyma.hero.characters.Hero.sigmar;
+import static ua.hudyma.hero.characters.Hero.*;
 import static ua.hudyma.maze.Maze.configureMaze01;
 
 public class Main {
     public static AtomicInteger roomCounter = new AtomicInteger();
 
     public static void main(String[] args) throws ClassNotFoundException {
+
         configureMaze01();
+        var heroList = Hero.getHeroList();
+        var sigmar = heroList.get(heroList.indexOf(Hero.sigmar));
+        var grungi = heroList.get(heroList.indexOf(Hero.grungi));
+        var ladril = heroList.get(heroList.indexOf(Hero.ladril));
+        var zoltar = heroList.get(heroList.indexOf(Hero.zoltar));
+        moveRight(getRandomSteps(), sigmar);
+        moveDown(getRandomSteps(), grungi);
+        moveUp(-getRandomSteps(), ladril);
+        moveLeft(-getRandomSteps(), zoltar);
+        Maze.viewMazeArray();
     }
+
+
+
+    private static int getRandomSteps() {
+        return new Random().nextInt(13) + 1;
+    }
+
     @Deprecated
     public static void configureHeroes() {
 

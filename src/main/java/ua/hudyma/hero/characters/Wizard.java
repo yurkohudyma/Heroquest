@@ -15,6 +15,7 @@ public class Wizard extends Hero implements Magic {
         super.livePoints = 4;
         super.mindPoints = 6; //quantity of spell one could remember
         super.icon = 'W';
+        super.name = "Zoltar";
     }
 
     @Override
