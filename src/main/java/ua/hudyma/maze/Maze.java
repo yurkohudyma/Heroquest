@@ -17,7 +17,7 @@ import static ua.hudyma.room.Room.prepareRoom;
 
 public abstract class Maze {
     protected static int X, Y;
-    protected static char[][] mazeArray;
+    public static char[][] mazeArray;
     protected List<Room> rooms;
     protected String name, legend;
     protected boolean needToFindPerson, needToFindTreasure, needToFindExit;
@@ -36,7 +36,7 @@ public abstract class Maze {
         Maze maze01 = new TheMaze01();
         maze01.fillMazeArray();
         Room room1hollow = prepareRoom(5, 5, 1, 1);
-        Room room2 = prepareRoom(8, 6, room1hollow.getPositionX() + room1hollow.getDimensionX(),
+        Room room2 = prepareRoom(8, 6, room1hollow.getPositionX() + room1hollow.getDimensionX() + 1,
                                               room1hollow.getPositionY());
         maze01.imprintRoomIntoMazeArray(room1hollow);
         maze01.imprintRoomIntoMazeArray(room2);

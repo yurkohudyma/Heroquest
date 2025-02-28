@@ -3,7 +3,6 @@ package ua.hudyma;
 import ua.hudyma.hero.characters.Hero;
 import ua.hudyma.maze.Maze;
 
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.lang.System.out;
@@ -21,68 +20,21 @@ public class Main {
         var grungi = heroList.get(heroList.indexOf(Hero.grungi));
         var ladril = heroList.get(heroList.indexOf(Hero.ladril));
         var zoltar = heroList.get(heroList.indexOf(Hero.zoltar));
-        moveRight(getRandomSteps(), sigmar);
+        /*moveRight(getRandomSteps(), sigmar);
         moveDown(getRandomSteps(), grungi);
         moveUp(-getRandomSteps(), ladril);
         moveLeft(-getRandomSteps(), zoltar);
+        moveUp(-4,ladril);
+        moveLeft(-3, grungi);*/
+        moveDown(6, sigmar);
+        moveRight(3, sigmar);
+        moveUp(-2, sigmar);
+        moveUp(-1, sigmar);
+
         Maze.viewMazeArray();
     }
 
 
-
-    private static int getRandomSteps() {
-        return new Random().nextInt(13) + 1;
-    }
-
-    @Deprecated
-    public static void configureHeroes() {
-
-        /*sigmar = new Barbarian();
-        grungi = new Dwarf();
-        ladril = new Elf(Nature.AIR);
-        zoltar = new Wizard(Nature.FIRE);*/
-
-        /*List<Weapon> sigmarWeapons = sigmar.getWeapons();
-        List<Armour> sigmarArmours = sigmar.getArmours();
-
-        sigmarWeapons.add(new BroadSword());
-        sigmar.setWeapons(sigmarWeapons);
-
-        sigmarArmours.add(new PlateArmour());
-        sigmar.setArmours(sigmarArmours);
-
-        List<Weapon> grungiWeapons = grungi.getWeapons();
-        List<Armour> grungiArmours = grungi.getArmours();
-        grungiWeapons.add(new HandAxe());
-        grungiArmours.add(new Shield());
-        grungi.setWeapons(grungiWeapons);
-        grungi.setArmours(grungiArmours);
-
-        List<Weapon> ladrilWeapons = ladril.getWeapons();
-        List<Armour> ladrilArmours = ladril.getArmours();
-        ladrilWeapons.add(new CrossBow());
-        ladrilArmours.add(new ChainMail());
-        ladril.setWeapons(ladrilWeapons);
-        ladril.setArmours(ladrilArmours);
-
-        List<Weapon> zoltarWeapons = zoltar.getWeapons();
-        List<Armour> zoltarArmours = zoltar.getArmours();
-        zoltarWeapons.add(new Staff());
-        zoltar.setWeapons(zoltarWeapons);
-        zoltarArmours.add(new Helmet());
-        zoltar.setArmours(zoltarArmours);*/
-
-        /*sigmar.setBalance(200);
-        grungi.setBalance(150);
-        ladril.setBalance(100);
-        zoltar.setBalance(150);*/
-
-        //viewAllStaff(sigmarWeapons, sigmarArmours, grungiWeapons, grungiArmours, ladrilWeapons, ladrilArmours, zoltarWeapons, zoltarArmours);
-
-        ///////////////////////////////
-        ///HEROES SETUP END
-        ///////////////////////////////
-    }
     public static String getSimpleName(Object obj) {
         return obj != null ? obj.getClass().getSimpleName() : "";
     }
