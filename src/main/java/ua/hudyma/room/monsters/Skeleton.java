@@ -9,4 +9,7 @@ public class Skeleton extends Monster {
         super.movability = 4;
         super.icon = 'S';
     }
+
+    public Skeleton() {
+    }
 }

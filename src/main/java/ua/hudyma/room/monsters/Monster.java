@@ -1,11 +1,22 @@
 package ua.hudyma.room.monsters;
 
+import static ua.hudyma.util.InheritorsFinder.retrieveAllClassInstances;
+
 public abstract class Monster {
     int endurance, attack, defence, movability;
-
+    public char icon;
     int x, y;
 
-    public Monster(int x, int y) {
+    public static Monster getMonsterByIcon(char icon) throws ClassNotFoundException {
+        var monsterList = retrieveAllClassInstances(Monster.class);
+        return monsterList
+                .stream()
+                .filter(i -> i.getIcon() == icon)
+                .findAny()
+                .orElseThrow();
+    }
+
+    protected Monster(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -61,5 +72,7 @@ public abstract class Monster {
     public Monster() {
     }
 
-    public char icon;
+    public char getIcon() {
+        return icon;
+    }
 }

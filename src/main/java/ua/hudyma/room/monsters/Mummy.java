@@ -1,6 +1,10 @@
 package ua.hudyma.room.monsters;
 
 public class Mummy extends Monster{
+
+    public Mummy() {
+    }
+
     public Mummy(int x, int y) {
         super(x,y);
         super.attack = 6;

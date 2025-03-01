@@ -2,6 +2,7 @@ package ua.hudyma;
 
 import ua.hudyma.hero.characters.Hero;
 import ua.hudyma.maze.Maze;
+import ua.hudyma.room.monsters.Monster;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -29,7 +30,9 @@ public class Main {
         moveDown(6, sigmar);
         moveRight(3, sigmar);
         moveUp(-2, sigmar);
-        moveUp(-1, sigmar);
+        //out.println(Monster.getMonsterByIcon('S'));
+        //Monster.getMonstersList().forEach(hero -> out.println(m.getIcon()));
+        //moveUp(-1, sigmar);
 
         Maze.viewMazeArray();
     }

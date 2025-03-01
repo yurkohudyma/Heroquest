@@ -1,6 +1,9 @@
 package ua.hudyma.room.monsters;
 
 public class Orc extends Monster {
+    public Orc() {
+    }
+
     public Orc(int x, int y) {
         super(x,y);
         super.attack = 3;

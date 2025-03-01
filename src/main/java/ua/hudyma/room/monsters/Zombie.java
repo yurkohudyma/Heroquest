@@ -9,4 +9,7 @@ public class Zombie extends Monster {
         super.movability = 2;
         super.icon = 'Z';
     }
+
+    public Zombie() {
+    }
 }

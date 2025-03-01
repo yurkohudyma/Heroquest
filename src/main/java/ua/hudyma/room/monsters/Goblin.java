@@ -9,4 +9,7 @@ public class Goblin extends Monster {
         super.movability = 5;
         super.icon = 'G';
     }
+
+    public Goblin() {
+    }
 }

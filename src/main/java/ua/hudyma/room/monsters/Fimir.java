@@ -9,4 +9,6 @@ public class Fimir extends Monster {
         super.movability = 6;
         super.icon = 'F';
     }
+    public Fimir() {
+    }
 }

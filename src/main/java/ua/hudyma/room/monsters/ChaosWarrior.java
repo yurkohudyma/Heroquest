@@ -1,6 +1,10 @@
 package ua.hudyma.room.monsters;
 
 public class ChaosWarrior extends Monster {
+
+    public ChaosWarrior() {
+    }
+
     public ChaosWarrior(int x, int y) {
         super(x,y);
         super.attack = 7;
