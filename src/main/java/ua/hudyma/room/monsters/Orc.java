@@ -2,6 +2,7 @@ package ua.hudyma.room.monsters;
 
 public class Orc extends Monster {
     public Orc() {
+        super.icon = 'O';
     }
 
     public Orc(int x, int y) {
