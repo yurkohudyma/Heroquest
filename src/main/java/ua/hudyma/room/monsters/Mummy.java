@@ -3,7 +3,6 @@ package ua.hudyma.room.monsters;
 public class Mummy extends Monster{
 
     public Mummy() {
-        super.icon = 'M';
     }
 
     public Mummy(int x, int y) {
