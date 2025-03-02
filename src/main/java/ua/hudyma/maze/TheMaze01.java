@@ -13,7 +13,7 @@ public class TheMaze01 extends Maze {
         super.needToFindExit = true;
         super.reward = 100;
         super.mazeArray = new char[getX()][getY()];
-        super.rooms = new ArrayList<>();
+        super.roomList = new ArrayList<>();
         sigmar.setCurPosX(0);
         sigmar.setCurPosY(0);
         grungi.setCurPosX(0);

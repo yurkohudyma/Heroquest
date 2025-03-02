@@ -1,10 +1,13 @@
 package ua.hudyma.hero.characters;
 
+import ua.hudyma.exceptions.MonsterNotFoundInRoomException;
+import ua.hudyma.exceptions.NoRoomRecognitionException;
 import ua.hudyma.hero.Magic;
 import ua.hudyma.hero.Races;
 import ua.hudyma.hero.weaponry.attack.Weapon;
 import ua.hudyma.hero.weaponry.defence.Armour;
 import ua.hudyma.maze.Maze;
+import ua.hudyma.room.Room;
 import ua.hudyma.room.monsters.Monster;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,8 +17,8 @@ import java.util.Random;
 
 import static java.lang.System.out;
 import static ua.hudyma.Main.*;
-import static ua.hudyma.maze.Maze.getMazeArray;
-import static ua.hudyma.maze.Maze.setMazeArray;
+import static ua.hudyma.maze.Maze.*;
+import static ua.hudyma.room.monsters.Monster.getIconMonsterMap;
 
 public abstract class Hero {
     public static Hero sigmar, grungi, ladril, zoltar;
@@ -26,16 +29,46 @@ public abstract class Hero {
         return new Random().nextInt(13) + 1;
     }
 
-    public static void attackUp(int steps, Hero hero) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        var mazeArray = getMazeArray();
-        //var monstersIconList = Monster.getMonsterIconList();
-        if (Monster.getMonsterIconList().contains(mazeArray[steps][hero.getCurPosY()])){
-            //todo randomize attack and defence skills, taking into account natural skills and armoury
-            //todo finalise monster removal from room registries
-            //todo callout
-            //todo remap mazeArray icons (hero, monster)
+    public static void attackUp(int steps, Hero hero) throws MonsterNotFoundInRoomException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        assertMonstersInRoom(hero, steps);
+        //todo randomize attack and defence skills, taking into account natural skills and armoury
+        //todo finalise monster removal from room registries
+        //todo callout
+        //todo redraw mazeArray icons (hero, monster)
+        out.println("trying to kill a monster....");
+
+
+    }
+
+    private static boolean assertMonstersInRoom(Hero hero, int steps) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
+        var monsterIcon = mazeArray[hero.getCurPosX() + steps][hero.getCurPosY()];
+        assertAttackedMonsterIconIsOfMonsterPool(monsterIcon);
+        Room room = recogniseHeroLocationRoom(hero);
+        var monster = getIconMonsterMap().get(monsterIcon);
+        if (room.getMonsters().contains(monster)) {
+            return true;
         }
-        out.println("There is no monster at that place, search another one");
+        throw new MonsterNotFoundInRoomException("There is no monster at that place, search another one");
+    }
+
+    private static void assertAttackedMonsterIconIsOfMonsterPool(char monsterIcon) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
+        if (!Monster.getMonsterIconList().contains(monsterIcon)){
+            throw new MonsterNotFoundInRoomException("Monster icon " + monsterIcon + " has not been recognized as registered monster icon");
+        }
+    }
+
+    public static Room recogniseHeroLocationRoom(Hero hero) {
+        Maze maze = Maze.currentMaze;
+        var roomList = maze.getRooms();
+        for (Room room : roomList) {
+            if (hero.getCurPosX() < room.getDimensionX() &&
+                    hero.getCurPosX() > room.getPositionX() &&
+                    hero.getCurPosY() < room.getDimensionY() &&
+                    hero.getCurPosY() > room.getPositionY()) {
+                return room;
+            }
+        }
+        throw new NoRoomRecognitionException("could not locate room with hero coords");
     }
 
     public boolean assertHeroCurrentPositionInitialised() {
@@ -46,6 +79,7 @@ public abstract class Hero {
         UP, DOWN, RIGHT, LEFT;
 
     }
+
     protected int livePoints, mindPoints, curPosX, curPosY, balance;
 
     protected String legend, name;
@@ -55,6 +89,7 @@ public abstract class Hero {
     protected List<Armour> armours;
     protected static List<Hero> heroList;
     boolean hasToolkit;
+
     public static void configureHeroes() {
         sigmar = new Barbarian();
         grungi = new Dwarf();
@@ -106,7 +141,7 @@ public abstract class Hero {
         mazeArray[heroPosX][moveIncrement] = hero.getIcon();
         hero.setCurPosY(moveIncrement);
         setMazeArray(mazeArray);
-        out.println(hero.getName() + " (" +  hero.getIcon() + ") moved "
+        out.println(hero.getName() + " (" + hero.getIcon() + ") moved "
                 + direction + " " + steps + " steps to (" + heroPosX + " : " + hero.getCurPosY() + ")");
     }
 
@@ -119,14 +154,14 @@ public abstract class Hero {
         mazeArray[moveIncrement][heroPosY] = hero.getIcon();
         hero.setCurPosX(moveIncrement);
         setMazeArray(mazeArray);
-        out.println(hero.getName() + " (" +  hero.getIcon() + ") moved "
+        out.println(hero.getName() + " (" + hero.getIcon() + ") moved "
                 + direction + " " + steps + " steps to (" + moveIncrement + " : " + heroPosY + ")");
     }
 
     private static boolean checkMovementPossibility(int steps, char[][] mazeArray,
                                                     Hero hero, Movement direction) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         var heroesIconsCharList = getHeroIconsCharList();
-        int x,y;
+        int x, y;
         switch (direction) {
             case DOWN -> {
                 if (hero.getCurPosX() + steps > mazeArray.length - 1) {
@@ -136,8 +171,8 @@ public abstract class Hero {
 
                 for (x = hero.getCurPosX() + 1; x < hero.getCurPosX() + steps; x++) {
                     if (trespassableIconsList.contains(mazeArray[x][hero.getCurPosY()]) ||
-                       heroesIconsCharList.contains(mazeArray[x][hero.getCurPosY()])) {
-                       return true;
+                            heroesIconsCharList.contains(mazeArray[x][hero.getCurPosY()])) {
+                        return true;
                     }
                 }
                 calloutForTakenPositionVertical(mazeArray, hero, x);
@@ -151,7 +186,7 @@ public abstract class Hero {
                 }
                 for (x = hero.curPosX - 1; x > hero.curPosX + steps; x--) {
                     if (trespassableIconsList.contains(mazeArray[x][hero.getCurPosY()]) ||
-                        heroesIconsCharList.contains(mazeArray[x][hero.getCurPosY()])) {
+                            heroesIconsCharList.contains(mazeArray[x][hero.getCurPosY()])) {
                         return true;
                     }
                 }
@@ -165,7 +200,7 @@ public abstract class Hero {
                 }
                 for (y = hero.getCurPosY() - 1; y > hero.curPosY + steps; y--) {
                     if (trespassableIconsList.contains(mazeArray[hero.getCurPosX()][y]) ||
-                        heroesIconsCharList.contains(mazeArray[hero.getCurPosX()][y])) {
+                            heroesIconsCharList.contains(mazeArray[hero.getCurPosX()][y])) {
                         return true;
                     }
                 }
@@ -179,7 +214,7 @@ public abstract class Hero {
                 }
                 for (y = hero.curPosY + 1; y < hero.curPosY + steps; y++) {
                     if (trespassableIconsList.contains(mazeArray[hero.getCurPosX()][y]) ||
-                        heroesIconsCharList.contains(mazeArray[hero.getCurPosX()][y])) {
+                            heroesIconsCharList.contains(mazeArray[hero.getCurPosX()][y])) {
                         return true;
                     }
                 }
@@ -192,7 +227,7 @@ public abstract class Hero {
 
     private static void calloutForOutsideMoveVertical(int steps, Hero hero) {
         printDelimiter();
-        out.println(hero.getName() + " (" +  hero.getIcon() + "): Position (" + steps + " : "
+        out.println(hero.getName() + " (" + hero.getIcon() + "): Position (" + steps + " : "
                 + hero.getCurPosY() + ")" +
                 " leads outside the current maze");
         printDelimiter();
@@ -200,7 +235,7 @@ public abstract class Hero {
 
     private static void calloutForOutsideMoveHorizontal(int steps, Hero hero) {
         printDelimiter();
-        out.println(hero.getName() + " (" +  hero.getIcon() +") : Position (" +
+        out.println(hero.getName() + " (" + hero.getIcon() + ") : Position (" +
                 hero.getCurPosX() + " : " + steps + ")" +
                 " leads outside the current maze");
         printDelimiter();
@@ -209,7 +244,7 @@ public abstract class Hero {
     private static void calloutForTakenPositionHorizontal(char[][] mazeArray,
                                                           Hero hero, int y) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         printDelimiter();
-        out.println(hero.getName() + " (" +  hero.getIcon() + ") : Position ("
+        out.println(hero.getName() + " (" + hero.getIcon() + ") : Position ("
                 + hero.getCurPosX() + " : " + y + ") is taken by "
                 + getMonsterSimpleNameByIconPosition(mazeArray[hero.curPosX][y], hero, y));
         printDelimiter();
@@ -225,8 +260,8 @@ public abstract class Hero {
                                                         Hero hero, int x)
             throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         printDelimiter();
-        out.println(hero.getName() + " (" +  hero.getIcon() + ") : Position (" + x + " : "
-                + hero.getCurPosY()  + ") is taken by "
+        out.println(hero.getName() + " (" + hero.getIcon() + ") : Position (" + x + " : "
+                + hero.getCurPosY() + ") is taken by "
                 + getMonsterSimpleNameByIconPosition(mazeArray[x][hero.curPosY], hero, x));
         printDelimiter();
     }

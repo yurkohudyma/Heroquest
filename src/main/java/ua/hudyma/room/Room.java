@@ -31,6 +31,16 @@ public class Room {
     private AtomicInteger localRoomCounter;
     protected int dimensionX, dimensionY, positionX, positionY;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    String name;
+
     public static Room prepareRoom(int x, int y, int posX, int posY) throws ClassNotFoundException {
         Room room = new Room(x, y, posX, posY);
         room.fillRoomArray();

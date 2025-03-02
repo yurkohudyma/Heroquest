@@ -18,9 +18,10 @@ import static ua.hudyma.room.Room.prepareRoom;
 public abstract class Maze {
     protected static int X, Y;
     public static char[][] mazeArray;
-    protected List<Room> rooms;
+    protected List<Room> roomList;
     protected String name, legend;
     protected boolean needToFindPerson, needToFindTreasure, needToFindExit;
+    public static Maze currentMaze;
     protected int reward;
 
     protected void fillMazeArray() {
@@ -34,25 +35,31 @@ public abstract class Maze {
     public static void configureMaze01() throws ClassNotFoundException {
         Hero.configureHeroes();
         Maze maze01 = new TheMaze01();
+        currentMaze = maze01;
         maze01.fillMazeArray();
-        Room room1hollow = prepareRoom(5, 5, 1, 1);
-        Room room2 = prepareRoom(8, 6, room1hollow.getPositionX() + room1hollow.getDimensionX() + 1,
-                                              room1hollow.getPositionY());
-        maze01.imprintRoomIntoMazeArray(room1hollow);
+        Room room1 = prepareRoom(5, 5, 1, 1);
+        room1.setName("room" + room1.getLocalRoomCounter());
+        Room room2 = prepareRoom(8, 6, room1.getPositionX() + room1.getDimensionX() + 1,
+                                              room1.getPositionY());
+        room2.setName("room"+room2.getLocalRoomCounter());
+        maze01.imprintRoomIntoMazeArray(room1);
         maze01.imprintRoomIntoMazeArray(room2);
         var roomList = maze01.getRooms();
-        roomList.addAll(List.of(room1hollow, room2));
+        roomList.addAll(List.of(room1, room2));
         maze01.setRooms(roomList);
         maze01.imprintHeroIconIntoMazeArray();
         viewMazeArray();
     }
 
     public void configureMaze02() throws ClassNotFoundException, IOException {
+        Maze ragnarMaze = new RescueOfSirRagnar02();
+        currentMaze = ragnarMaze;
         Room room1 = prepareRoom(4, 8, 1, 1);
+        room1.setName("room1");
         Room room2 = prepareRoom(5, 1, room1.getDimensionX() + 1, 1);
+        room1.setName("room2");
         room1.addTraps(room2, new PitTrap(2, 0), new MonsterTrap(4, 0));
         room2.addMonsters(new Fimir(4, 0), new ChaosWarrior(0, 0));
-        Maze ragnarMaze = new RescueOfSirRagnar02();
         var roomsList = ragnarMaze.getRooms();
         roomsList.addAll(List.of(room1, room2));
         ragnarMaze.setRooms(roomsList);
@@ -98,11 +105,11 @@ public abstract class Maze {
     }
 
     public List<Room> getRooms() {
-        return rooms;
+        return roomList;
     }
 
     public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+        this.roomList = rooms;
     }
 
     public String getName() {

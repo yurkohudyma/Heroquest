@@ -7,7 +7,7 @@ public class RescueOfSirRagnar02 extends Maze {
         super.name = "RagnarRescue";
         super.legend = "Rescue Sir Ragnar";
         super.reward = 200;
-        super.rooms = new ArrayList<>();
+        super.roomList = new ArrayList<>();
         super.needToFindPerson = true;
     }
 }

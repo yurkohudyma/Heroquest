@@ -1,5 +1,6 @@
 package ua.hudyma;
 
+import ua.hudyma.exceptions.MonsterNotFoundInRoomException;
 import ua.hudyma.hero.characters.Hero;
 import ua.hudyma.maze.Maze;
 import ua.hudyma.room.monsters.Monster;
@@ -14,7 +15,8 @@ import static ua.hudyma.maze.Maze.configureMaze01;
 public class Main {
     public static AtomicInteger roomCounter = new AtomicInteger();
 
-    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
 
         configureMaze01();
         var heroList = Hero.getHeroList();
@@ -36,7 +38,9 @@ public class Main {
         //Monster.getMonstersList().forEach(hero -> out.println(m.getIcon()));
         moveUp(-1, sigmar);
         //Monster.getIconMonsterMap().forEach((k,v) -> out.println(k +" -> "+ getSimpleName(v)));
-        attackUp(-1, sigmar);
+        //attackUp(-1, sigmar);
+        out.println(Hero.recogniseHeroLocationRoom(sigmar).getName());
+        out.println(getSimpleName(Maze.currentMaze));
 
 
         Maze.viewMazeArray();
