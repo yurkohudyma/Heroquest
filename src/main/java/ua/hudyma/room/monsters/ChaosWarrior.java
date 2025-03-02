@@ -3,6 +3,9 @@ package ua.hudyma.room.monsters;
 public class ChaosWarrior extends Monster {
 
     public ChaosWarrior() {
+        super.icon = 'C';
+
+        //todo
     }
 
     public ChaosWarrior(int x, int y) {

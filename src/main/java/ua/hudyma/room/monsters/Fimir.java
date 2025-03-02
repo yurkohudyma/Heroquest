@@ -10,5 +10,6 @@ public class Fimir extends Monster {
         super.icon = 'F';
     }
     public Fimir() {
+        super.icon = 'F';
     }
 }
