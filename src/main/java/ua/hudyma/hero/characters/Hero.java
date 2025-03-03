@@ -4,6 +4,10 @@ import ua.hudyma.exceptions.MonsterNotFoundInRoomException;
 import ua.hudyma.exceptions.NoRoomRecognitionException;
 import ua.hudyma.hero.Magic;
 import ua.hudyma.hero.Races;
+import ua.hudyma.hero.characters.Barbarian;
+import ua.hudyma.hero.characters.Dwarf;
+import ua.hudyma.hero.characters.Elf;
+import ua.hudyma.hero.characters.Wizard;
 import ua.hudyma.hero.weaponry.attack.Weapon;
 import ua.hudyma.hero.weaponry.defence.Armour;
 import ua.hudyma.maze.Maze;
@@ -23,6 +27,10 @@ import static ua.hudyma.room.monsters.Monster.getIconMonsterMap;
 public abstract class Hero {
     public static Hero sigmar, grungi, ladril, zoltar;
 
+    protected static Weapon activeWeapon;
+
+    protected static Armour activeArmour;
+
     public static List<Character> trespassableIconsList = List.of('▦', '□', '.');
 
     public static int getRandomSteps() {
@@ -30,29 +38,59 @@ public abstract class Hero {
     }
 
     public static void attackUp(int steps, Hero hero) throws MonsterNotFoundInRoomException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        assertMonstersInRoom(hero, steps);
+        Room room = recogniseHeroLocationRoom(hero);
+        var monsterIcon = mazeArray[hero.getCurPosX() + steps][hero.getCurPosY()];
+        assertMonstersInRoom(room, monsterIcon);
+        var monster = getIconMonsterMap().get(monsterIcon);
+
+        //todo fetch all hero characteristics
+        //hero's attack phase
+
+        var weaponAttackBoost = activeWeapon == null ? 0 : activeWeapon.getAttackBoost();
+        var overallHeroAttackValue = (new Random().nextInt(hero.getAttack()) + 1) + weaponAttackBoost;
+        out.println(hero.getName() + "'s attack value is " + overallHeroAttackValue);
+        var overallMonsterDefenceValue = monster.getDefence();
+        out.println(getSimpleName(monster) + "'s defence value is " + overallMonsterDefenceValue);
+        var attackPointsDifference = overallHeroAttackValue - overallMonsterDefenceValue;
+        if (attackPointsDifference == 0) {
+            out.println("The attack has been duly responded : " + overallHeroAttackValue + " : " + overallMonsterDefenceValue);
+        } else if (attackPointsDifference < 0) {
+            out.println("The strike has not been successful : " + overallHeroAttackValue + " : " + overallMonsterDefenceValue);
+        } else if (attackPointsDifference < monster.getDefence()) {
+            out.println(hero.getName() + " has wounded the monster : " + overallHeroAttackValue + " : " + overallMonsterDefenceValue);
+            monster.setEndurance(attackPointsDifference);
+        } else if (attackPointsDifference >= monster.getDefence()){
+            out.println(getSimpleName(monster) + " has been killed");
+            //todo checkout monster from the room
+        }
+
+
+        //monster's counterattack phase (if alive)
+        var heroArmours = hero.getArmours();
+
         //todo randomize attack and defence skills, taking into account natural skills and armoury
         //todo finalise monster removal from room registries
         //todo callout
         //todo redraw mazeArray icons (hero, monster)
-        out.println("trying to kill a monster....");
+        //out.println(hero.getName() + " trying to kill a " + getSimpleName(monster));
 
 
     }
 
-    private static boolean assertMonstersInRoom(Hero hero, int steps) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
-        var monsterIcon = mazeArray[hero.getCurPosX() + steps][hero.getCurPosY()];
+    private static boolean assertMonstersInRoom(Room room, char monsterIcon) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
         assertAttackedMonsterIconIsOfMonsterPool(monsterIcon);
-        Room room = recogniseHeroLocationRoom(hero);
         var monster = getIconMonsterMap().get(monsterIcon);
-        if (room.getMonsters().contains(monster)) {
-            return true;
+        for (Monster mon : room.getMonsters()) {
+            if (mon.getClass().asSubclass(Monster.class)
+                    .isAssignableFrom(monster.getClass().asSubclass(Monster.class))) {
+                return true;
+            }
         }
         throw new MonsterNotFoundInRoomException("There is no monster at that place, search another one");
     }
 
     private static void assertAttackedMonsterIconIsOfMonsterPool(char monsterIcon) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
-        if (!Monster.getMonsterIconList().contains(monsterIcon)){
+        if (!Monster.getMonsterIconList().contains(monsterIcon)) {
             throw new MonsterNotFoundInRoomException("Monster icon " + monsterIcon + " has not been recognized as registered monster icon");
         }
     }
@@ -78,12 +116,14 @@ public abstract class Hero {
     public enum Movement {
         UP, DOWN, RIGHT, LEFT;
 
+
     }
 
     protected int livePoints, mindPoints, curPosX, curPosY, balance;
-
     protected String legend, name;
+
     protected Races race;
+
     protected Magic.Nature magicNature;
     protected List<Weapon> weapons;
     protected List<Armour> armours;
@@ -324,6 +364,14 @@ public abstract class Hero {
         this.mindPoints = defence;
     }
 
+    public static Armour getActiveArmour() {
+        return activeArmour;
+    }
+
+    public static void setActiveArmour(Armour activeArmour) {
+        Hero.activeArmour = activeArmour;
+    }
+
     public Races getRace() {
         return race;
     }
@@ -424,5 +472,13 @@ public abstract class Hero {
         ///////////////////////////////
         ///HEROES SETUP END
         ///////////////////////////////
+    }
+
+    public static Weapon getActiveWeapon() {
+        return activeWeapon;
+    }
+
+    public static void setActiveWeapon(Weapon activeWeapon) {
+        Hero.activeWeapon = activeWeapon;
     }
 }

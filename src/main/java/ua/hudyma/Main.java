@@ -38,9 +38,9 @@ public class Main {
         //Monster.getMonstersList().forEach(hero -> out.println(m.getIcon()));
         moveUp(-1, sigmar);
         //Monster.getIconMonsterMap().forEach((k,v) -> out.println(k +" -> "+ getSimpleName(v)));
-        //attackUp(-1, sigmar);
-        out.println(Hero.recogniseHeroLocationRoom(sigmar).getName());
-        out.println(getSimpleName(Maze.currentMaze));
+        attackUp(-1, sigmar);
+        //out.println(Hero.recogniseHeroLocationRoom(sigmar).getName());
+        //out.println(getSimpleName(Maze.currentMaze));
 
 
         Maze.viewMazeArray();

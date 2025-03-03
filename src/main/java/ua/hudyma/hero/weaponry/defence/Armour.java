@@ -9,6 +9,7 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.toMap;
 
 public abstract class Armour {
+
     public int getPrice() {
         return price;
     }
