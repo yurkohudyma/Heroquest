@@ -4,10 +4,6 @@ import ua.hudyma.exceptions.MonsterNotFoundInRoomException;
 import ua.hudyma.exceptions.NoRoomRecognitionException;
 import ua.hudyma.hero.Magic;
 import ua.hudyma.hero.Races;
-import ua.hudyma.hero.characters.Barbarian;
-import ua.hudyma.hero.characters.Dwarf;
-import ua.hudyma.hero.characters.Elf;
-import ua.hudyma.hero.characters.Wizard;
 import ua.hudyma.hero.weaponry.attack.Weapon;
 import ua.hudyma.hero.weaponry.defence.Armour;
 import ua.hudyma.maze.Maze;
@@ -43,9 +39,10 @@ public abstract class Hero {
         assertMonstersInRoom(room, monsterIcon);
         var monster = getIconMonsterMap().get(monsterIcon);
 
-        //todo fetch all hero characteristics
         //hero's attack phase
 
+        //todo randomize attack and defence skills, taking into account natural skills and armoury
+        var monsterKilled = false;
         var weaponAttackBoost = activeWeapon == null ? 0 : activeWeapon.getAttackBoost();
         var overallHeroAttackValue = (new Random().nextInt(hero.getAttack()) + 1) + weaponAttackBoost;
         out.println(hero.getName() + "'s attack value is " + overallHeroAttackValue);
@@ -61,18 +58,22 @@ public abstract class Hero {
             monster.setEndurance(attackPointsDifference);
         } else if (attackPointsDifference >= monster.getDefence()){
             out.println(getSimpleName(monster) + " has been killed");
+            monsterKilled = true;
             //todo checkout monster from the room
+            var roomMonsters = room.getMonsters();
+            var mon = correlateAndGetMonsterInstance(monster, roomMonsters);
+            var monsterUncheckedFromTheRoom = roomMonsters.remove(mon);
+            mazeArray[hero.getCurPosX() + steps][hero.getCurPosY()] = 'x';
+            out.println(roomMonsters);
+        }
+
+        //monster's counterattack phase (if alive)
+        if (!monsterKilled){
+            var heroArmours = hero.getArmours();
+            out.println("Monster fights back!!!");
         }
 
 
-        //monster's counterattack phase (if alive)
-        var heroArmours = hero.getArmours();
-
-        //todo randomize attack and defence skills, taking into account natural skills and armoury
-        //todo finalise monster removal from room registries
-        //todo callout
-        //todo redraw mazeArray icons (hero, monster)
-        //out.println(hero.getName() + " trying to kill a " + getSimpleName(monster));
 
 
     }
@@ -80,13 +81,29 @@ public abstract class Hero {
     private static boolean assertMonstersInRoom(Room room, char monsterIcon) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
         assertAttackedMonsterIconIsOfMonsterPool(monsterIcon);
         var monster = getIconMonsterMap().get(monsterIcon);
-        for (Monster mon : room.getMonsters()) {
+        var roomMonsters = room.getMonsters();
+        if (correlateMonsterInstances(monster, roomMonsters)) return true;
+        throw new MonsterNotFoundInRoomException("There is no monster at that place, search another one");
+    }
+
+    private static boolean correlateMonsterInstances(Monster monster, List<Monster> roomMonsters) {
+        for (Monster mon : roomMonsters) {
             if (mon.getClass().asSubclass(Monster.class)
                     .isAssignableFrom(monster.getClass().asSubclass(Monster.class))) {
                 return true;
             }
         }
-        throw new MonsterNotFoundInRoomException("There is no monster at that place, search another one");
+        return false;
+    }
+
+    private static Monster correlateAndGetMonsterInstance(Monster monster, List<Monster> roomMonsters) {
+        for (Monster mon : roomMonsters) {
+            if (mon.getClass().asSubclass(Monster.class)
+                    .isAssignableFrom(monster.getClass().asSubclass(Monster.class))) {
+                return mon;
+            }
+        }
+        return null;
     }
 
     private static void assertAttackedMonsterIconIsOfMonsterPool(char monsterIcon) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, MonsterNotFoundInRoomException {
